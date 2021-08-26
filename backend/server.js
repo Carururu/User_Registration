@@ -1,7 +1,7 @@
 const app = require('./app.js')
 const mongoose = require('mongoose')
 
-const DB = 'mongodb://localhost:27017/todos'
+const DB = 'mongodb://localhost:27017/users'
 
 const ConnectToMongo = async (DB) => {
   try {
