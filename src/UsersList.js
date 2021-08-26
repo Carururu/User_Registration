@@ -34,7 +34,7 @@ const UsersList = () => {
                   <Link to={`/edit/${users._id}`}>Edit</Link>
                 </td>
                 <td>
-                  <button className='danger'>Delete</button>
+                  <button>Delete</button>
                 </td>
               </tr>
             ))}
