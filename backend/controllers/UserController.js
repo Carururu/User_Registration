@@ -11,3 +11,16 @@ exports.GetAllUsers = GetAllUsers = async (req, res) => {
     console.log(err)
   }
 }
+
+exports.CreateUser = CreateUser = async (req, res) => {
+  try {
+    const newUser = req.body
+    const user = await User.create(newUser)
+    res.status(200).json({
+      status: 'success',
+      data: user,
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
