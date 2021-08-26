@@ -51,7 +51,7 @@ const UserForm = ({ user, onSubmit }) => {
       </div>
       <div className='form-group'>
         <button type='submit' className='btn btn-primary'>
-          Create User
+          Save User
         </button>
       </div>
     </form>

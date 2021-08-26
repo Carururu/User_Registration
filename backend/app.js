@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 
 // Route Imports
+const UserRoutes = require('./routes/users')
 
 let app = express()
 
@@ -12,9 +13,7 @@ app.use(express.json())
 app.use(morgan('dev'))
 
 // Routes
-app.use('/user', (req, res) => {
-  res.send('app 2 users to')
-})
+app.use('/user', UserRoutes)
 
 // Export App
 module.exports = app
