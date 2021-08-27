@@ -1,9 +1,10 @@
 import React from 'react'
 import UserForm from './UserForm'
+import { createUser } from './api'
 
 const CreateUser = () => {
   const onSubmit = (data) => {
-    alert(JSON.stringify(data))
+    createUser(data)
   }
 
   return (

@@ -8,7 +8,10 @@ exports.GetAllUsers = GetAllUsers = async (req, res) => {
       data: allUsers,
     })
   } catch (err) {
-    console.log(err)
+    res.status(400).json({
+      status: 'failed',
+      message: 'GET ALL USERS ERROR',
+    })
   }
 }
 
@@ -21,7 +24,10 @@ exports.CreateUser = CreateUser = async (req, res) => {
       data: user,
     })
   } catch (err) {
-    console.log(err)
+    res.status(400).json({
+      status: 'failed',
+      message: 'CREATE USER ERROR',
+    })
   }
 }
 
@@ -29,12 +35,22 @@ exports.GetUserById = GetUserById = async (req, res) => {
   try {
     const userId = req.params.id
     const user = await User.findById(userId)
-    res.status(200).json({
-      status: 'success',
-      data: user,
-    })
+    if (!user) {
+      res.status(404).json({
+        status: 'failed',
+        message: 'USER NOT FOUND',
+      })
+    } else {
+      res.status(200).json({
+        status: 'success',
+        data: user,
+      })
+    }
   } catch (err) {
-    console.log(err)
+    res.status(400).json({
+      status: 'failed',
+      message: 'GET USER BY ID ERROR',
+    })
   }
 }
 
@@ -43,24 +59,44 @@ exports.UpdateUserById = UpdateUserById = async (req, res) => {
     const userId = req.params.id
     const updateUser = req.body
     const user = await User.findByIdAndUpdate(userId, updateUser, { new: true })
-    res.status(200).json({
-      status: 'success',
-      data: user,
-    })
+    if (!user) {
+      res.status(404).json({
+        status: 'failed',
+        message: 'USER NOT FOUND',
+      })
+    } else {
+      res.status(200).json({
+        status: 'success',
+        data: user,
+      })
+    }
   } catch (err) {
-    console.log(err)
+    res.status(400).json({
+      status: 'failed',
+      message: 'UPDATE USER ERROR',
+    })
   }
 }
 
 exports.DeleteUser = DeleteUser = async (req, res) => {
   try {
     const userId = req.params.id
-    await User.findByIdAndDelete(userId)
-    res.status(200).json({
-      status: 'success',
-      message: 'User is deleted',
-    })
+    const user = await User.findByIdAndDelete(userId)
+    if (!user) {
+      res.status(404).json({
+        status: 'failed',
+        message: 'USER NOT FOUND',
+      })
+    } else {
+      res.status(200).json({
+        status: 'success',
+        message: 'User is deleted',
+      })
+    }
   } catch (err) {
-    console.log(err)
+    res.status(400).json({
+      status: 'failed',
+      message: 'DELETE USER ERROR',
+    })
   }
 }

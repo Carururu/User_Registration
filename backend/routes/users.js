@@ -8,7 +8,9 @@ const {
   DeleteUser,
 } = require('../controllers/UserController')
 
-Router.route('/').get(GetAllUsers).post(CreateUser)
+Router.route('/').get(GetAllUsers)
+
+Router.route('/create').post(CreateUser)
 
 Router.route('/:id').get(GetUserById).patch(UpdateUserById).delete(DeleteUser)
 
