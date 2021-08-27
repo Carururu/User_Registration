@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import UserForm from './UserForm'
+import { editUser, getUserById } from './api'
+import { useParams } from 'react-router'
 
 const EditUser = () => {
+  const { id } = useParams()
   const [user, setUser] = useState()
 
   useEffect(() => {
-    setUser({
-      username: 'carl',
-      email: 'carl@example.com',
-      password: '123456',
-    })
-  }, [])
+    const fetchUser = async () => {
+      const user = await getUserById(id)
+      setUser(user)
+    }
+    fetchUser()
+  }, [id])
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data))
+    editUser(id, data)
   }
 
   return user ? (

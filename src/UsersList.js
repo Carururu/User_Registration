@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getUsers } from './api'
+import { getUsers, deleteUser } from './api'
 
 const UsersList = () => {
   const [items, setItems] = useState([])
+
+  const deleteHandler = async (id) => {
+    await deleteUser(id)
+
+    const fetchItems = async () => {
+      const users = await getUsers()
+      setItems(users)
+    }
+    fetchItems()
+  }
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -35,7 +45,9 @@ const UsersList = () => {
                   <Link to={`/edit/${user._id}`}>Edit</Link>
                 </td>
                 <td>
-                  <button>Delete</button>
+                  <button onClick={() => deleteHandler(user._id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
